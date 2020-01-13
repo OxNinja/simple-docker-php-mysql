@@ -1,0 +1,34 @@
+version: '3'
+services:
+        db:
+                image: mysql:5.7
+                container_name: simple_db
+                restart: always
+                environment:
+                        - MYSQL_ROOT_PASSWORD=password
+                        - MYSQL_DATABASE=database
+                volumes:
+                        - ./db/db.sql:/docker-entrypoint-initdb.d/db.sql
+                ports:
+                        - "3306:3306"
+                networks:
+                    - local_net
+        web:
+                image: php:7.2-apache
+                container_name: simple_web
+                build:
+                    context: ./web
+                volumes:
+                        - ./web/app/:/var/www/html/
+                ports:
+                        - "80:80"
+                networks:
+                    local_net:
+                        aliases:
+                            - simple.web
+                depends_on:
+                        - db
+
+networks:
+    local_net:
+        driver: bridge
