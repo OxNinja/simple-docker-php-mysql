@@ -17,7 +17,30 @@ $query = "SELECT * FROM users";
 $result = query_db($db, $query);
 
 # Fetch the result only if some found
-fetch_result($result);
+# Custom function to list users
+fetch_result_users($result);
+
+?>
+
+<p>Make custom query :</p>
+<form method="post">
+    <input type="text" name="query" placeholder="SELECT * FROM users WHERE...">
+    <input type="submit" name="submit">
+</form>
+
+<?php
+
+if(isset($_POST["submit"]) && isset($_POST["query"])){
+
+    $db = connect_db();
+
+    # OK this is obviously vulnerable to SQLi on purpose for testing
+    $query = $_POST["query"];
+    
+    $result = query_db($db, $query);
+
+    fetch_result($result);
+}
 
 ?>
 

@@ -18,7 +18,7 @@ function query_db($db, $query){
 }
 
 # Fetching the results
-function fetch_result($res){
+function fetch_result_users($res){
     if($res->num_rows > 0){
         echo "\nResults :\n"; 
         echo "<pre>\n";
@@ -33,6 +33,19 @@ function fetch_result($res){
 	} else {
 		echo "No result.";
 	}
+}
+
+function fetch_result($res){
+    if($res->num_rows > 0){
+        echo "\nResults :\n<pre>";
+        while($r = $res->fetch_row()){
+            for($x = 0; $x < sizeof($r); $x++){
+                echo $r[$x]." ";
+            }
+            echo "\n";
+        }
+        echo "<pre>";
+    }
 }
 
 ?>
