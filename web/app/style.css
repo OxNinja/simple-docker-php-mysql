@@ -158,6 +158,11 @@ div#articles > p
 	text-indent: 20px;
 }
 
+pre
+{
+    margin: 15px;
+}
+
 footer
 {
 	display: flex;
